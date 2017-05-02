@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jquery 轮播图</title>
+	<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	img{
+		width:300px;
+		height:300px;
+	}
+	ul{
+		list-style: none;
+	}
+		.container{
+			width:300px;
+			height:300px;
+			margin:0 auto;
+			border:1px solid #ddd;
+			position:relative;
+			
+		}
+		.img{
+			width:300px;
+			height:300px;
+		}
+		.tu{
+			position:absolute;
+			top:0;
+			left:0;
+
+		}
+		.btn{
+			color:#fff;
+		}
+		.btn1{
+			position:absolute;
+			top:50%;
+			left:0;
+			background:#000;
+			width:30px;
+			height:30px;
+			text-align: center;
+			line-height: 30px;
+			font-size:25px;
+			margin-top:-15px;
+			opacity: 0.7;
+			cursor: pointer;
+		}
+		.btn2{
+			position:absolute;
+			top:50%;
+			right:0;
+			background:#000;
+			width:30px;
+			height:30px;
+			text-align: center;
+			line-height: 30px;
+			font-size:25px;
+			margin-top:-15px;
+			opacity: 0.7;
+			cursor: pointer;
+		}
+		.index{
+			position:absolute;
+			bottom:10px;
+			left:90px;
+			
+		}
+		.index>li{
+			float:left;
+			width:20px;
+			height:20px;
+			border-radius: 50%;
+			border:1px solid #ddd;
+			text-align:center;
+			margin-left:10px;
+			cursor: pointer;
+		}
+		.clearfix:after{
+			content:'';
+			visibility: hidden;
+			clear:both;
+			height:0;
+
+		}
+		.bg{
+			background:#f00;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<ul class="img">
+		<li class="tu"><img src="img/09C4BA987D84BF79BCD08A2E6EAAFE4B.png"></li>
+		<li class="tu"><img src="img/112CA2F6EF5C2F87DAC56EE05E76B744.png"></li>
+		<li class="tu"><img src="img/944F2F0D16F2C50CA5E12B0B1DFC7829.png"></li>
+		<li class="tu"><img src="img/86986B2AEC81F0B25A9AAC07648FCEFA.png"></li>
+	</ul>
+	<ul class="index clearfix">
+		<li class="bg icon">1</li>
+		<li class="icon">2</li>
+		<li class="icon">3</li>
+		<li class="icon">4</li>
+	</ul>
+	<ul class="btn">
+		<li class="btn1">&lt;</li>
+		<li class="btn2">&gt;</li> 
+	</ul>
+</div>
+<script type="text/javascript">
+	$(function(){
+		// $('.tu').eq(0).show().siblings().hide();
+		var i=0;
+		var timer;
+		var b=false; //判断是否点击的一个值
+		 time();
+		 //当鼠标悬停在下标的时候
+		$('.icon').hover(function(){
+			clearInterval(timer);
+			var i=$(this).index();
+			$('.tu').eq(i).fadeIn(300).siblings().fadeOut(300);
+			$('.icon').eq(i).addClass('bg').siblings().removeClass('bg');	
+
+		},function(){
+			 time();
+		})
+		$('.btn1').click(function(){ 
+			b=true;
+			clearInterval(timer);
+			i--;
+			if(i == -1){
+				i=4;
+			}
+			play();
+			// 判断没有点击事件的时候再次调用定时器
+		if(b==="false"||b === false){
+			time();
+		}
+			
+		});
+		$('.btn2').click(function(){ 
+			b=true;
+			clearInterval(timer);
+			i++;
+			if(i == 5){
+				i=0;
+			}
+			play();
+			// 判断没有点击事件的时候再次调用定时器
+		if(b==="false"||b === false){
+			time();
+		}
+			
+		});
+		function play(){
+			$('.tu').eq(i).fadeIn(300).siblings().fadeOut(300);
+			$('.icon').eq(i).addClass('bg').siblings().removeClass('bg');
+			
+		}
+		function time(){
+				timer=setInterval(function(){
+				i++;
+				if(i == 5){
+					i=0;
+				}
+				play();
+			},2000)
+		}
+
+	})
+	
+</script>
+
+</body>
+</html>
